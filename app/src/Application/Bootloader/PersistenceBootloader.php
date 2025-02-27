@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Bootloader;
 
+use App\Domain\Report\Repository\ReportRepositoryInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
+use App\Infrastructure\Persistence\CycleORMReportRepository;
 use App\Infrastructure\Persistence\CycleORMUserRepository;
 use Spiral\Boot\Bootloader\Bootloader;
 
@@ -15,5 +17,6 @@ final class PersistenceBootloader extends Bootloader
 {
     protected const SINGLETONS = [
         UserRepositoryInterface::class => CycleORMUserRepository::class,
+        ReportRepositoryInterface::class => CycleORMReportRepository::class,
     ];
 }

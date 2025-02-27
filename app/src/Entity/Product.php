@@ -13,13 +13,13 @@ class Product
 {
     #[Column(type: 'bigPrimary')]
     private int $productId;
-    
+
     #[Column(type: 'bigInteger')]
     private int $categoryId;
-    
+
     #[Column(type: 'string', length: 200)]
     private string $productName;
-    
+
     #[HasMany(target: Order::class)]
     private array $orders;
 }

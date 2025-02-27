@@ -1,22 +1,26 @@
 version: '3'
 rpc:
-    listen: 'tcp://127.0.0.1:6001'
+  listen: 'tcp://127.0.0.1:6001'
 http:
-    address: '0.0.0.0:8080'
-    middleware:
-        - gzip
-        - static
-    static:
-        dir: public
-        forbid:
-            - .php
-            - .htaccess
-    pool:
-        num_workers: 1
-        supervisor:
-            max_worker_memory: 100
+  address: '0.0.0.0:8080'
+  middleware:
+    - gzip
+    - static
+  static:
+    dir: public
+    forbid:
+      - .php
+      - .htaccess
+  pool:
+    num_workers: 1
+    max_jobs: 1
+    supervisor:
+      max_worker_memory: 100
+env:
+  PHP_IDE_CONFIG: serverName=application.loc
+  XDEBUG_CONFIG: client_host=127.0.0.1 mode=debug start_with_request=yes client_port=9003 log=/var/log/xdebug.log
 server:
-    command: 'php app.php'
-    relay: pipes
+  command: 'php app.php'
+  relay: pipes
 metrics:
-    address: '127.0.0.1:2112'
+  address: '127.0.0.1:2112'

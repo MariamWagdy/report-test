@@ -27,27 +27,9 @@ class OrmDefaultBaea8475f53fb941e7457e8d11dbd0ef extends Migration
         $this->table('orders')
         ->addColumn('order_id', 'bigPrimary', ['nullable' => false, 'defaultValue' => null])
         ->addColumn('customer_id', 'bigInteger', ['nullable' => false, 'defaultValue' => null])
-        ->addColumn('product_id', 'bigInteger', ['nullable' => false, 'defaultValue' => null])
-        ->addColumn('quantity', 'integer', ['nullable' => false, 'defaultValue' => null])
-        ->addColumn('unit_price', 'decimal', ['nullable' => false, 'defaultValue' => null, 'precision' => 10, 'scale' => 2])
         ->addColumn('order_date', 'date', ['nullable' => false, 'defaultValue' => null])
         ->addColumn('store_id', 'bigInteger', ['nullable' => false, 'defaultValue' => null])
-        ->addColumn('store_storeId', 'bigInteger', ['nullable' => false, 'defaultValue' => null])
-        ->addColumn('product_productId', 'bigInteger', ['nullable' => false, 'defaultValue' => null])
-        ->addIndex(['store_storeId'], ['name' => 'orders_index_store_storeid_6790d290a19b9', 'unique' => false])
-        ->addIndex(['product_productId'], ['name' => 'orders_index_product_productid_6790d290a1b17', 'unique' => false])
-        ->addForeignKey(['store_storeId'], 'stores', ['store_id'], [
-            'name' => 'orders_store_storeId_fk',
-            'delete' => 'CASCADE',
-            'update' => 'CASCADE',
-            'indexCreate' => true,
-        ])
-        ->addForeignKey(['product_productId'], 'products', ['product_id'], [
-            'name' => 'orders_product_productId_fk',
-            'delete' => 'CASCADE',
-            'update' => 'CASCADE',
-            'indexCreate' => true,
-        ])
+            ->addIndex(['store_id'], ['name' => 'idx_orders_store_id']) // Adding index
         ->setPrimaryKeys(['order_id'])
         ->create();
     }
