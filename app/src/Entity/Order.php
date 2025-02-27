@@ -36,7 +36,7 @@ class Order
         return [
             'orderId' => $this->orderId,
             'customerId' => $this->customerId,
-            'orderDate' => $this->orderDate->format('Y-m-d'),
+            'orderDate' => $this->orderDate,
             'storeId' => $this->storeId,
         ];
     }

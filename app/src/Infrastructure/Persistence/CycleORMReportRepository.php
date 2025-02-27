@@ -50,8 +50,8 @@ class CycleORMReportRepository implements ReportRepositoryInterface
         $source = $this->orm->getSource(OrderItem::class);
         $db = $source->getDatabase();
         return $db->query($Query, [
-            'start_date' => $startDate->format('Y-m-d'),
-            'end_date' => $endDate->format('Y-m-d')
+            'start_date' => $startDate,
+            'end_date' => $endDate
         ])->fetchAll();
     }
 }
