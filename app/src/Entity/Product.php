@@ -19,7 +19,4 @@ class Product
 
     #[Column(type: 'string', length: 200)]
     private string $productName;
-
-    #[HasMany(target: Order::class)]
-    private array $orders;
 }

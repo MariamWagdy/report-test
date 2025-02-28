@@ -20,6 +20,4 @@ class Store
     #[Column(type: 'string', length: 200)]
     private string $storeName;
 
-    #[HasMany(target: Order::class)]
-    private array $orders;
 }
