@@ -1,13 +1,17 @@
 # KC report test
 
-Hello developer! Welcome to your new awesome `Web` application built with the `Spiral framework`.
+## Overview
+KC Report Test is a web application built using the **Spiral Framework** and **Cycle ORM**. It provides a set of APIs to generate business reports for analyzing sales data across different regions and categories.
+
+This application is optimized for performance, ensuring that reports run efficiently within MySQL 8.0. It supports batch data updates and is designed to handle scalable data growth.
+
 
 To set up the project, run the following commands:
 ```bash
 composer install
 ```
 
-Now you can configure the `Database`. 
+Now you can configure the `Database`.
 To do this, open the .env file and set up the database access credentials.
 ```dotenv
 # Database
@@ -22,46 +26,135 @@ And run migrations:
 php app.php cycle:migrate
 ```
 
+And run seeds:
+```bash
+php app.php db:seed
+```
+
 After the installation is complete, you can start the application using the following command:
 ```bash
 rr serve
 ```
 
-## Required Reports
+# KC Report Test
 
-Create a separate endpoint for each report so it can be used as: http://localhost:8080/{end-point}
+## Overview
+KC Report Test is a web application built using the **Spiral Framework** and **Cycle ORM**. It provides a set of APIs to generate business reports for analyzing sales data across different regions and categories.
 
-The business needs these reports to run in under 1 second:
+This application is optimized for performance, ensuring that reports run efficiently within MySQL 8.0. It supports batch data updates and is designed to handle scalable data growth.
 
-  1. **Monthly Sales by Region** (end point: http://localhost:8080/monthly-sales-by-region)
-     * Group by: year, month, region_id
-     * Show: total sales amount, number of orders
-     * Must work for any 12-month period
-  2. **Top Categories by Store** (end point: http://localhost:8080/top-categories-by-store)
-     * Group by: store_id, category_id 
-     * Show: total sales amount, rank within store 
-     * Filtered by: date range (any 3 months)
- 
-### Task Requirements
+## Installation
+To set up the project, run the following commands:
+```bash
+composer install
+```
 
-* Write the initial `SQL` queries that generate these reports (seeds)
-* Explain why they might be slow
-* Modify the database schema to make them fast
-* Write the new, optimized queries
-* Create PHP code to populate the database.
-* Provide reports on the performance of new queries compared to the old ones.
-* Document your approach
+### Database Configuration
+Open the `.env` file and set up the database access credentials:
+```dotenv
+# Database
+DB_CONNECTION=mysql
+DB_DATABASE=cycle_test
+DB_USERNAME=****
+DB_PASSWORD=****
+```
 
-### Constraints
-* Solution must work in MySQL 8.0
-* Data is updated daily in batch (no real-time requirements)
-* Must handle 2x data growth
+Then, run the migrations:
+```bash
+php app.php cycle:migrate
+```
 
-### Evaluation Criteria
-* Query Performance (40%)
-* Schema Design (30%)
-* Code Quality (20%)
-* Documentation (10%)
+### Running the Application
+Start the application using:
+```bash
+rr serve
+```
 
-## Time Limit
-6 hours
+## Available APIs
+The project includes three APIs to generate key business reports:
+
+### 1. **Show Orders**
+- **Endpoint:** `GET /show-orders`
+- **Description:** Fetches a list of all orders from the database.
+- **Response Format:**
+  ```json
+  {
+      "data": [
+          {
+              "orderId": 1,
+              "customerId": 5,
+              "orderDate": "2024-01-15",
+              "storeID": 4
+          },
+          ...
+      ]
+  }
+  ```
+
+### 2. **Monthly Sales by Region**
+- **Endpoint:** `GET /monthly-sales-by-region`
+- **Description:** Provides total sales amount and number of orders, grouped by **year, month, and region**.
+- **Response Format:**
+  ```json
+  {
+      "data": [
+          {
+              "year": 2024,
+              "month": 1,
+              "region_id": 1,
+              "total_sales_amount": 25000.00,
+              "number_of_orders": 100
+          },
+          ...
+      ]
+  }
+  ```
+
+### 3. **Top Categories by Store**
+- **Endpoint:** `GET /top-categories-by-store`
+- **Description:** Provides top-selling product categories and its rank per store within date range.
+- **Query Parameters:**
+    - `start_date` (required) – Start date of the range
+    - `end_date` (required) – End date of the range
+- **Response Format:**
+  ```json
+  {
+      "data": [
+          {
+              "store_id": 1,
+              "category_id": 3,
+              "total_sales_amount": 12000.00,
+              "category_rank": 1
+          },
+          ...
+      ]
+  }
+  ```
+
+## Project Features
+- **Efficient Report Generation**: Optimized SQL queries ensure that reports run within 1 second.
+- **Cycle ORM Integration**: Uses Cycle ORM for managing database entities.
+- **Docker Compatibility**: Can be containerized for deployment.
+- **Scalability**: Designed to handle growing data requirements.
+
+## License
+This project is open-source and available under the **MIT License**.
+
+---
+
+### Contributors
+We welcome contributions! Feel free to submit pull requests or open issues in the repository.
+
+---
+
+This project is now **ready to be made public** on GitHub! 🚀
+
+
+
+### Contributors
+We welcome contributions! Feel free to submit pull requests or open issues in the repository.
+
+---
+
+This project is now **ready to be made public** on GitHub! 🚀
+
