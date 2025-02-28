@@ -3,7 +3,7 @@
 ## Overview
 KC Report Test is a web application built using the **Spiral Framework** and **Cycle ORM**. It provides a set of APIs to generate business reports for analyzing sales data across different regions and categories.
 
-This application is optimized for performance, ensuring that reports run efficiently within MySQL 8.0. It supports batch data updates and is designed to handle scalable data growth.
+This application is optimized for performance, ensuring that reports run efficiently within **MySQL 8.0**. It supports batch data updates and is designed to handle scalable data growth.
 
 
 To set up the project, run the following commands:
