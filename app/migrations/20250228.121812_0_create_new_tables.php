@@ -7,7 +7,7 @@ namespace Migration;
 
 use Cycle\Migrations\Migration;
 
-class CreateTables extends Migration
+class CreateNewTables extends Migration
 {
     protected const DATABASE = 'default';
 

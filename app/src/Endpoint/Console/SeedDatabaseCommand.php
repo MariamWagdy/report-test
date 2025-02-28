@@ -5,72 +5,105 @@ declare(strict_types=1);
 namespace App\Endpoint\Console;
 
 use Cycle\ORM\ORM;
-use Spiral\Console\Attribute\Argument;
 use Spiral\Console\Attribute\AsCommand;
-use Spiral\Console\Attribute\Option;
-use Spiral\Console\Attribute\Question;
 use Spiral\Console\Command;
 use Cycle\Database\DatabaseProviderInterface;
 
 #[AsCommand(name: 'db:seed', description: 'Seed the database')]
 final class SeedDatabaseCommand extends Command
 {
-    public function __invoke(): int
+    public function __invoke(ORM $orm, DatabaseProviderInterface $db): int
     {
-        // Put your command logic here
-        $this->info('Command logic is not implemented yet');
+        $this->info('Seeding database...');
+        $this->perform($orm, $db);
+        $this->info('Database seeded successfully!');
 
         return self::SUCCESS;
     }
 
     public function perform(ORM $orm, DatabaseProviderInterface $db): void
     {
-        echo  "Hi Mariam!"; exit;
         $database = $db->database('default');
 
-        // Insert Users
-        $database->insert('users')->values([
-            ['id' => 1, 'username' => 'John Doe', 'email' => 'john@doe.com'],
-            ['id' => 2, 'username' => 'Jane Smith', 'email' => 'jane@example.com'],
-        ])->run();
-
         // Insert Regions
-        $database->insert('regions')->values([
+        $regions = [
             ['region_id' => 1, 'region_name' => 'North America'],
             ['region_id' => 2, 'region_name' => 'Europe'],
-        ])->run();
+            ['region_id' => 3, 'region_name' => 'Asia'],
+            ['region_id' => 4, 'region_name' => 'South America'],
+            ['region_id' => 5, 'region_name' => 'Australia'],
+        ];
+        $database->insert('regions')->values($regions)->run();
 
-        // Insert Stores
-        $database->insert('stores')->values([
-            ['store_id' => 1, 'region_id' => 1, 'store_name' => 'Store A'],
-            ['store_id' => 2, 'region_id' => 2, 'store_name' => 'Store B'],
-        ])->run();
+        // Insert Stores (20+ stores)
+        $stores = [];
+        for ($i = 1; $i <= 20; $i++) {
+            $stores[] = [
+                'store_id' => $i,
+                'region_id' => rand(1, 5),
+                'store_name' => "Store $i"
+            ];
+        }
+        $database->insert('stores')->values($stores)->run();
 
-        // Insert Categories
-        $database->insert('categories')->values([
+        // Insert Categories (10+ categories)
+        $categories = [
             ['category_id' => 1, 'category_name' => 'Electronics'],
             ['category_id' => 2, 'category_name' => 'Clothing'],
-        ])->run();
+            ['category_id' => 3, 'category_name' => 'Home Appliances'],
+            ['category_id' => 4, 'category_name' => 'Books'],
+            ['category_id' => 5, 'category_name' => 'Toys'],
+            ['category_id' => 6, 'category_name' => 'Automotive'],
+            ['category_id' => 7, 'category_name' => 'Sports'],
+            ['category_id' => 8, 'category_name' => 'Beauty'],
+            ['category_id' => 9, 'category_name' => 'Furniture'],
+            ['category_id' => 10, 'category_name' => 'Health'],
+        ];
+        $database->insert('categories')->values($categories)->run();
 
-        // Insert Products
-        $database->insert('products')->values([
-            ['product_id' => 1, 'category_id' => 1, 'product_name' => 'Laptop'],
-            ['product_id' => 2, 'category_id' => 2, 'product_name' => 'T-Shirt'],
-        ])->run();
+        // Insert Products (50+ products)
+        $products = [];
+        for ($i = 1; $i <= 50; $i++) {
+            $products[] = [
+                'product_id' => $i,
+                'category_id' => rand(1, 10),
+                'product_name' => "Product $i"
+            ];
+        }
+        $database->insert('products')->values($products)->run();
 
-        // Insert Orders
-        $database->insert('orders')->values([
-            ['customer_id' => 1, 'store_id' => 1, 'order_date' => '2024-01-15'],
-            ['customer_id' => 2, 'store_id' => 2, 'order_date' => '2024-01-20'],
-        ])->run();
+        // Insert Users (Customers)
+        $users = [];
+        for ($i = 1; $i <= 50; $i++) {
+            $users[] = [
+                'id' => $i,
+                'username' => "User $i",
+                'email' => "user$i@example.com",
+            ];
+        }
+        $database->insert('users')->values($users)->run();
 
-        // Insert Order Items
-        $database->insert('order_items')->values([
-            ['order_id' => 1, 'product_id' => 1, 'quantity' => 1, 'unit_price' => 1000.00],
-            ['order_id' => 2, 'product_id' => 2, 'quantity' => 3, 'unit_price' => 20.00],
-        ])->run();
+        // Insert Orders (100+ orders)
+        $orders = [];
+        for ($i = 1; $i <= 100; $i++) {
+            $orders[] = [
+                'customer_id' => rand(1, 50),
+                'store_id' => rand(1, 20),
+                'order_date' => date('Y-m-d', strtotime("-" . rand(1, 365) . " days")),
+            ];
+        }
+        $database->insert('orders')->values($orders)->run();
 
-
-        $this->info('Database seeded successfully!');
+        // Insert Order Items (200+ order items)
+        $orderItems = [];
+        for ($i = 1; $i <= 200; $i++) {
+            $orderItems[] = [
+                'order_id' => rand(1, 100),
+                'product_id' => rand(1, 50),
+                'quantity' => rand(1, 5),
+                'unit_price' => rand(5, 500) * 1.0,
+            ];
+        }
+        $database->insert('order_items')->values($orderItems)->run();
     }
 }
