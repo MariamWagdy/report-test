@@ -36,40 +36,6 @@ After the installation is complete, you can start the application using the foll
 rr serve
 ```
 
-# KC Report Test
-
-## Overview
-KC Report Test is a web application built using the **Spiral Framework** and **Cycle ORM**. It provides a set of APIs to generate business reports for analyzing sales data across different regions and categories.
-
-This application is optimized for performance, ensuring that reports run efficiently within MySQL 8.0. It supports batch data updates and is designed to handle scalable data growth.
-
-## Installation
-To set up the project, run the following commands:
-```bash
-composer install
-```
-
-### Database Configuration
-Open the `.env` file and set up the database access credentials:
-```dotenv
-# Database
-DB_CONNECTION=mysql
-DB_DATABASE=cycle_test
-DB_USERNAME=****
-DB_PASSWORD=****
-```
-
-Then, run the migrations:
-```bash
-php app.php cycle:migrate
-```
-
-### Running the Application
-Start the application using:
-```bash
-rr serve
-```
-
 ## Available APIs
 The project includes three APIs to generate key business reports:
 
@@ -84,7 +50,7 @@ The project includes three APIs to generate key business reports:
               "orderId": 1,
               "customerId": 5,
               "orderDate": "2024-01-15",
-              "storeID": 4
+              "storeId": 4
           },
           ...
       ]
@@ -147,14 +113,8 @@ We welcome contributions! Feel free to submit pull requests or open issues in th
 
 ---
 
-This project is now **ready to be made public** on GitHub! 🚀
+### Contact
 
+For questions or support, reach out via GitHub Issues or Email: **mariam.wagdy92@gmail.com**.
 
-
-### Contributors
-We welcome contributions! Feel free to submit pull requests or open issues in the repository.
-
----
-
-This project is now **ready to be made public** on GitHub! 🚀
-
+### Happy Coding!
